@@ -17,7 +17,7 @@ $ make -j4 all
 On my local machine, I find `-j4` is enough for me to hit 100% CPU utilization most of the time. This will take several hours to complete.
 
 ## Seeing built images
-Search for the images matching the Docker repo's name
+Search for the images matching the Docker repo's name (there will be more than what's displayed below; this was ran midway through building all):
 ```console
 $ docker images liambindle/bmi
 REPOSITORY       TAG             IMAGE ID       CREATED             SIZE
