@@ -18,15 +18,15 @@ gcc%:
 
 esmf_slim-openmpi-%:
 	SPACK_ESMF_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^openmpi@$*"
-	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "geoschem/buildmatrix:esmf_slim-openmpi$*-ubuntu" 
+	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC="${SPACK_ESMF_SPEC}" --target esmf_custom -t "geoschem/buildmatrix:esmf_slim-openmpi$*-ubuntu" 
 
 esmf_slim-mpich-%:
 	SPACK_ESMF_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^mpich@$*"
-	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "geoschem/buildmatrix:esmf_slim-mpich$*-ubuntu" 
+	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC="${SPACK_ESMF_SPEC}" --target esmf_custom -t "geoschem/buildmatrix:esmf_slim-mpich$*-ubuntu" 
 
 esmf_slim-mvapich-%:
 	SPACK_ESMF_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^mvapich2@$* fabrics=mrail"
-	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "geoschem/buildmatrix:esmf_slim-mvapich$*-ubuntu" 
+	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC="${SPACK_ESMF_SPEC}" --target esmf_custom -t "geoschem/buildmatrix:esmf_slim-mvapich$*-ubuntu" 
 	
 %:
 	docker build . --build-arg BASE_IMAGE=$@ 
