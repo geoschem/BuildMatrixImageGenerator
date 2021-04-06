@@ -13,29 +13,29 @@ help:           ## Show this help.
 
 gcc%:
 	docker build . --build-arg BASE_IMAGE=gcc --build-arg GCC_VERSION=$* 
-	docker build . --build-arg BASE_IMAGE=gcc --build-arg GCC_VERSION=$* --target esmf_full -t "liambindle/bmi:esmf-$@"
-	docker build . --build-arg BASE_IMAGE=gcc --build-arg GCC_VERSION=$* --target netcdf -t "liambindle/bmi:netcdf-$@"
+	docker build . --build-arg BASE_IMAGE=gcc --build-arg GCC_VERSION=$* --target esmf_full -t "geoschem/buildmatrix:esmf-$@"
+	docker build . --build-arg BASE_IMAGE=gcc --build-arg GCC_VERSION=$* --target netcdf -t "geoschem/buildmatrix:netcdf-$@"
 
 esmf_slim-openmpi-%:
 	SPACK_ESMF_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^openmpi@$*"
-	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-openmpi$*-ubuntu" 
+	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "geoschem/buildmatrix:esmf_slim-openmpi$*-ubuntu" 
 
 esmf_slim-mpich-%:
 	SPACK_ESMF_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^mpich@$*"
-	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-mpich$*-ubuntu" 
+	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "geoschem/buildmatrix:esmf_slim-mpich$*-ubuntu" 
 
 esmf_slim-mvapich-%:
 	SPACK_ESMF_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^mvapich2@$* fabrics=mrail"
-	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-mvapich$*-ubuntu" 
+	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "geoschem/buildmatrix:esmf_slim-mvapich$*-ubuntu" 
 	
 %:
 	docker build . --build-arg BASE_IMAGE=$@ 
-	docker build . --build-arg BASE_IMAGE=$@ --target esmf_full -t "liambindle/bmi:esmf-$@" 
-	docker build . --build-arg BASE_IMAGE=$@ --target netcdf -t "liambindle/bmi:netcdf-$@" 
+	docker build . --build-arg BASE_IMAGE=$@ --target esmf_full -t "geoschem/buildmatrix:esmf-$@" 
+	docker build . --build-arg BASE_IMAGE=$@ --target netcdf -t "geoschem/buildmatrix:netcdf-$@" 
 
 oldest-cmake:
 	SPACK_ESMF_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^openmpi@$*"
-	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_UTILS_SPEC=cmake@3.13.5 --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-cmake3.13-ubuntu" 
+	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_UTILS_SPEC=cmake@3.13.5 --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "geoschem/buildmatrix:esmf_slim-cmake3.13-ubuntu" 
 
 .PHONY: all esmf-mpi-variants
 
