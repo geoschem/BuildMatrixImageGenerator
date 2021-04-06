@@ -6,8 +6,6 @@ ARG UBUNTU_VERSION=20.04
 ARG CENTOS_VERSION=8
 ARG GCC_VERSION=8.3
 
-ARG SPACK_ESMF_SPEC="esmf"
-
 # Base layers
 
 FROM alpine:${ALPINE_VERSION} AS alpine-base
@@ -59,20 +57,14 @@ RUN . /opt/spack/share/spack/setup-env.sh && \
     spack clean -a
 
 # ESMF
-FROM spack-with-utils as esmf_full
-RUN . /opt/spack/share/spack/setup-env.sh && \
-    spack install -y esmf && \
-    spack clean -a
-
-FROM spack-with-utils as esmf_custom
-ARG SPACK_ESMF_SPEC
+FROM spack-with-utils as esmf
+ARG SPACK_ESMF_SPEC="esmf"
 RUN . /opt/spack/share/spack/setup-env.sh && \
     spack install -y ${SPACK_ESMF_SPEC} && \
     spack clean -a
-
 
 # All image to join prior images (so build is concurrent)
 FROM alpine:latest AS all
 COPY --from=spack /tmp/noop /tmp/
 COPY --from=netcdf /tmp/noop /tmp/
-COPY --from=esmf_full /tmp/noop /tmp/
+COPY --from=esmf /tmp/noop /tmp/
