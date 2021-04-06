@@ -20,4 +20,4 @@ jobs:
 
       - name: Run test build
         run: |
-          make esmf_slim-openmpi-4.0.1
+          make ubuntu
