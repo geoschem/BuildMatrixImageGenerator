@@ -18,15 +18,15 @@ gcc%:
 
 esmf_slim-openmpi-%:
 	ESMF_SPACK_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^openmpi@$*"
-	docker build . --build-arg BASE_IMAGE=alpine --build-arg ESMF_SPACK_SPEC=${ESMF_SPACK_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-openmpi$*-alpine" 
+	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg ESMF_SPACK_SPEC=${ESMF_SPACK_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-openmpi$*-ubuntu" 
 
 esmf_slim-mpich-%:
 	ESMF_SPACK_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^mpich@$*"
-	docker build . --build-arg BASE_IMAGE=alpine --build-arg ESMF_SPACK_SPEC=${ESMF_SPACK_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-mpich$*-alpine" 
+	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg ESMF_SPACK_SPEC=${ESMF_SPACK_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-mpich$*-ubuntu" 
 
 esmf_slim-mvapich-%:
 	ESMF_SPACK_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^mvapich2@$* fabrics=mrail"
-	docker build . --build-arg BASE_IMAGE=alpine --build-arg ESMF_SPACK_SPEC=${ESMF_SPACK_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-mvapich$*-alpine" 
+	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg ESMF_SPACK_SPEC=${ESMF_SPACK_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-mvapich$*-ubuntu" 
 	
 %:
 	docker build . --build-arg BASE_IMAGE=$@ 
@@ -37,4 +37,4 @@ esmf_slim-mvapich-%:
 
 esmf-mpi-variants: esmf_slim-openmpi-3.0.4 esmf_slim-openmpi-3.1.4 esmf_slim-openmpi-4.0.1 esmf_slim-mpich-3.1.4 esmf_slim-mpich-3.2.1 esmf_slim-mpich-3.3.1 esmf_slim-mvapich-2.2 esmf_slim-mvapich-2.3.1
 
-all: ubuntu centos alpine gcc8.3 gcc8.4 gcc9.3 gcc10.2 esmf-mpi-variants
+all: ubuntu centos gcc8.3 gcc8.4 gcc9.3 gcc10.2 esmf-mpi-variants # alpine
