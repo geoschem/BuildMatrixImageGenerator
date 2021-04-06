@@ -17,21 +17,25 @@ gcc%:
 	docker build . --build-arg BASE_IMAGE=gcc --build-arg GCC_VERSION=$* --target netcdf -t "liambindle/bmi:netcdf-$@"
 
 esmf_slim-openmpi-%:
-	ESMF_SPACK_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^openmpi@$*"
-	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg ESMF_SPACK_SPEC=${ESMF_SPACK_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-openmpi$*-ubuntu" 
+	SPACK_ESMF_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^openmpi@$*"
+	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-openmpi$*-ubuntu" 
 
 esmf_slim-mpich-%:
-	ESMF_SPACK_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^mpich@$*"
-	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg ESMF_SPACK_SPEC=${ESMF_SPACK_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-mpich$*-ubuntu" 
+	SPACK_ESMF_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^mpich@$*"
+	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-mpich$*-ubuntu" 
 
 esmf_slim-mvapich-%:
-	ESMF_SPACK_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^mvapich2@$* fabrics=mrail"
-	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg ESMF_SPACK_SPEC=${ESMF_SPACK_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-mvapich$*-ubuntu" 
+	SPACK_ESMF_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^mvapich2@$* fabrics=mrail"
+	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-mvapich$*-ubuntu" 
 	
 %:
 	docker build . --build-arg BASE_IMAGE=$@ 
 	docker build . --build-arg BASE_IMAGE=$@ --target esmf_full -t "liambindle/bmi:esmf-$@" 
 	docker build . --build-arg BASE_IMAGE=$@ --target netcdf -t "liambindle/bmi:netcdf-$@" 
+
+oldest-cmake:
+	SPACK_ESMF_SPEC="esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^openmpi@$*"
+	docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_UTILS_SPEC=cmake@3.13.5 --build-arg SPACK_ESMF_SPEC=${SPACK_ESMF_SPEC} --target esmf_custom -t "liambindle/bmi:esmf_slim-cmake3.13-ubuntu" 
 
 .PHONY: all esmf-mpi-variants
 

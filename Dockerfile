@@ -6,7 +6,6 @@ ARG UBUNTU_VERSION=20.04
 ARG CENTOS_VERSION=8
 ARG GCC_VERSION=8.3
 
-
 # Base layers
 
 FROM alpine:${ALPINE_VERSION} AS alpine-base
@@ -43,13 +42,12 @@ FROM base as spack
 RUN cd /opt && \
     git clone https://github.com/spack/spack.git
 
-
 # Extra utils
 FROM spack as spack-with-utils
+ARG SPACK_UTILS_SPEC="cmake"
 RUN . /opt/spack/share/spack/setup-env.sh && \
-    spack install -y cmake && \
+    spack install -y ${SPACK_UTILS_SPEC} && \
     spack clean -a
-
 
 # NetCDF-C and NetCDF-Fortran
 FROM spack-with-utils as netcdf
@@ -57,7 +55,6 @@ ENV SPACK_PACKAGES="netcdf-c netcdf-fortran"
 RUN . /opt/spack/share/spack/setup-env.sh && \
     spack install -y ${SPACK_PACKAGES} && \
     spack clean -a
-
 
 # ESMF
 FROM spack-with-utils as esmf_full
