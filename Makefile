@@ -66,7 +66,7 @@ oldest-cmake:
 	}
 
 test: esmf_slim-openmpi-4.0.1
-	docker exec geoschem/buildmatrix:esmf_slim-openmpi4.0.1-ubuntu .github/workflows/test-gchp-build.sh
+	docker run -v $(shell pwd)/.github/workflows:/my-volume  geoschem/buildmatrix:esmf_slim-openmpi4.0.1-ubuntu bash /my-volume/test-gchp-build.sh
 
 
 .PHONY: all esmf-mpi-variants test

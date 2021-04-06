@@ -44,21 +44,21 @@ RUN cd /opt && \
 
 # Extra utils
 FROM spack as spack-with-utils
-ARG SPACK_UTILS_SPEC="cmake"
+ARG SPACK_UTILS_SPEC="cmake m4 target=x86_64"
 RUN . /opt/spack/share/spack/setup-env.sh && \
     spack install -y ${SPACK_UTILS_SPEC} && \
     spack clean -a
 
 # NetCDF-C and NetCDF-Fortran
 FROM spack-with-utils as netcdf
-ENV SPACK_PACKAGES="netcdf-c netcdf-fortran"
+ENV SPACK_PACKAGES="netcdf-c netcdf-fortran target=x86_64"
 RUN . /opt/spack/share/spack/setup-env.sh && \
     spack install -y ${SPACK_PACKAGES} && \
     spack clean -a
 
 # ESMF
 FROM spack-with-utils as esmf
-ARG SPACK_ESMF_SPEC="esmf"
+ARG SPACK_ESMF_SPEC="esmf target=x86_64"
 RUN . /opt/spack/share/spack/setup-env.sh && \
     spack install -y ${SPACK_ESMF_SPEC} && \
     spack clean -a

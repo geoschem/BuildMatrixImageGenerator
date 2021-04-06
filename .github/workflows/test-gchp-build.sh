@@ -5,6 +5,8 @@ set -e
 export CC=gcc
 export CXX=g++
 export FC=gfortran
+spack load cmake
+spack load m4
 spack load mpi
 spack load hdf5 
 spack load netcdf-c
