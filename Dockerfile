@@ -44,8 +44,15 @@ RUN cd /opt && \
     git clone https://github.com/spack/spack.git
 
 
+# Extra utils
+FROM spack as spack-with-utils
+RUN . /opt/spack/share/spack/setup-env.sh && \
+    spack install -y cmake && \
+    spack clean -a
+
+
 # NetCDF-C and NetCDF-Fortran
-FROM spack as netcdf
+FROM spack-with-utils as netcdf
 ENV SPACK_PACKAGES="netcdf-c netcdf-fortran"
 RUN . /opt/spack/share/spack/setup-env.sh && \
     spack install -y ${SPACK_PACKAGES} && \
@@ -53,12 +60,12 @@ RUN . /opt/spack/share/spack/setup-env.sh && \
 
 
 # ESMF
-FROM spack as esmf_full
+FROM spack-with-utils as esmf_full
 RUN . /opt/spack/share/spack/setup-env.sh && \
     spack install -y esmf && \
     spack clean -a
 
-FROM spack as esmf_custom
+FROM spack-with-utils as esmf_custom
 ARG SPACK_ESMF_SPEC="esmf"
 RUN . /opt/spack/share/spack/setup-env.sh && \
     spack install -y ${SPACK_ESMF_SPEC} && \
