@@ -12,7 +12,7 @@ on:
 jobs:
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-  test-building-esmf_slim-openmpi-4.0.1:
+  test-build:
     runs-on: ubuntu-latest
 
     steps:
