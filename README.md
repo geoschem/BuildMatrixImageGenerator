@@ -1,4 +1,6 @@
 # BuildMatrixImageGenerator
+[![Docker](https://github.com/geoschem/BuildMatrixImageGenerator/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/geoschem/BuildMatrixImageGenerator/actions/workflows/docker-publish.yml)
+
 This is a Dockerfile and makefile for building the GEOS-Chem build matrix images. These scripts are not robust and will likely need tweaks/updates.
 
 ## Requirements
@@ -20,9 +22,9 @@ On my local machine, I find `-j4` is enough for me to hit 100% CPU utilization m
 Search for the images matching the Docker repo's name (there will be more than what's displayed below; this was ran midway through building all):
 ```console
 $ docker images liambindle/bmi
-REPOSITORY       TAG             IMAGE ID       CREATED             SIZE
-liambindle/bmi   esmf-gcc8.3     bcf06f951e6d   23 minutes ago      1.99GB
-liambindle/bmi   esmf-ubuntu     7b9fdb9453e7   35 minutes ago      1.23GB
-liambindle/bmi   netcdf-gcc8.3   c4153fce6327   46 minutes ago      1.69GB
-liambindle/bmi   netcdf-ubuntu   b9592d2880d2   About an hour ago   925MB
+REPOSITORY             TAG             IMAGE ID       CREATED             SIZE
+geoschem/buildmatrix   esmf-gcc8.3     bcf06f951e6d   23 minutes ago      1.99GB
+geoschem/buildmatrix   esmf-ubuntu     7b9fdb9453e7   35 minutes ago      1.23GB
+geoschem/buildmatrix   netcdf-gcc8.3   c4153fce6327   46 minutes ago      1.69GB
+geoschem/buildmatrix   netcdf-ubuntu   b9592d2880d2   About an hour ago   925MB
 ```
