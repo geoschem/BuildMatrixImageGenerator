@@ -50,7 +50,7 @@ esmf_slim-mvapich-%:
 	{ \
 		SPACK_ESMF_SPEC='esmf target=x86_64 -lapack -pio -pnetcdf -xerces ^mvapich2@$* fabrics=mrail' ; \
 		echo "Building ESMF image with spec: \"$${SPACK_ESMF_SPEC}\"" ; \
-		docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC="$${SPACK_ESMF_SPEC}" --target esmf -t "geoschem/buildmatrix:esmf_slim-mvapich$*-ubuntu" 
+		docker build . --build-arg BASE_IMAGE=ubuntu --build-arg SPACK_ESMF_SPEC="$${SPACK_ESMF_SPEC}" --target esmf -t "geoschem/buildmatrix:esmf_slim-mvapich$*-ubuntu" ; \
 	}	
 	
 %:
@@ -71,6 +71,6 @@ test: esmf_slim-openmpi-4.0.1
 
 .PHONY: all esmf-mpi-variants test
 
-esmf-mpi-variants: esmf_slim-openmpi-3.0.4 esmf_slim-openmpi-3.1.4 esmf_slim-openmpi-4.0.1 esmf_slim-mpich-3.1.4 esmf_slim-mpich-3.2.1 esmf_slim-mpich-3.3.1 esmf_slim-mvapich-2.2 esmf_slim-mvapich-2.3.1
+esmf-mpi-variants: esmf_slim-openmpi-3.0.4 esmf_slim-openmpi-3.1.4 esmf_slim-openmpi-4.0.1  esmf_slim-mvapich-2.2 esmf_slim-mvapich-2.3.1 # esmf_slim-mpich-3.1.4 esmf_slim-mpich-3.2.1 esmf_slim-mpich-3.3.1
 
-all: ubuntu centos gcc8.3 gcc8.4 gcc9.3 gcc10.2 esmf-mpi-variants oldest-cmake # alpine
+all: ubuntu centos gcc8 gcc9 gcc10 esmf-mpi-variants oldest-cmake # alpine

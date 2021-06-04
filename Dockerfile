@@ -24,7 +24,7 @@ RUN dnf -y install ${DNF_PACKAGES} && \
     dnf clean all
 ENV PATH=/opt/rh/gcc-toolset-9/root/usr/bin:$PATH
 
-FROM gcc:${GCC_VERSION} AS gcc-base
+FROM gcc:${GCC_VERSION}-buster AS gcc-base
 ENV APT_PACKAGES="git ca-certificates python3 make tar gzip unzip bzip2 xz-utils patch curl"
 RUN apt-get update && \
     apt-get install --no-install-recommends -y ${APT_PACKAGES} && \
