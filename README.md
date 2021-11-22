@@ -1,3 +1,5 @@
+Archived in favor of https://github.com/geoschem/gc-cloud-infrastructure (EC2 Image Builder)
+
 # BuildMatrixImageGenerator
 [![Docker](https://github.com/geoschem/BuildMatrixImageGenerator/actions/workflows/build-test.yml/badge.svg)](https://github.com/geoschem/BuildMatrixImageGenerator/actions/workflows/build-test.yml)
 
